@@ -3,9 +3,10 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class EvaluationService {
-
+	
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
@@ -15,7 +16,14 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		
-		return "";
+		String rev = "robot";
+		
+		char[] ch = rev.toCharArray();
+		
+		for(int i=ch.length-1;i>=0; i--)	
+			System.out.print(ch[i]);
+		
+		return rev;
 	}
 
 	/**
@@ -27,8 +35,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
+		String phr = "Portable Network Graphics";
+		StringBuilder acro = new StringBuilder ();
+		
+		Scanner scan = new Scanner(System.in);
+		
+		System.out.println("Enter your three words: ");
+		String threeWords = scan.nextLine();
+		
+		for(int i = 0; i < threeWords(); i++) {
+			
+			acro.append(threeWords.length())
+		
+		}
+		
+		
 		return null;
+	}
+
+	private int threeWords() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	/**
