@@ -1,9 +1,12 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
 public class EvaluationService {
 	
@@ -20,7 +23,7 @@ public class EvaluationService {
 		
 		char[] ch = rev.toCharArray();
 		
-		for(int i=ch.length-1;i>=0; i--)	
+		for(int i = ch.length-1;i>=0; i--)	
 			System.out.print(ch[i]);
 		
 		return rev;
@@ -34,28 +37,23 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
-	public String acronym(String phrase) {
-		String phr = "Portable Network Graphics";
-		StringBuilder acro = new StringBuilder ();
-		
-		Scanner scan = new Scanner(System.in);
-		
-		System.out.println("Enter your three words: ");
-		String threeWords = scan.nextLine();
-		
-		for(int i = 0; i < threeWords(); i++) {
-			
-			acro.append(threeWords.length())
-		
-		}
+	public String Acronym(String phrase) {
+		//string variable named "threewords" holds the value/phrase "Ruby On Rails"
+		String threeWords = "Ruby On Rails";
+		//string array holds each word
+		//.splits() separates the three word phrase
+		String[] word = threeWords.split(" ");
+		//Character class to hold each letter of each word
+		//to string returns the letter
+		String acronym =
+			Character.toString(word[0].charAt(0)).toUpperCase() + 
+			Character.toString(word[1].charAt(0)).toUpperCase() + 
+			Character.toString(word[2].charAt(0)).toUpperCase();
 		
 		
-		return null;
-	}
-
-	private int threeWords() {
-		// TODO Auto-generated method stub
-		return 0;
+			System.out.println("Acronym is: "+ acronym);
+		
+	return acronym;
 	}
 
 	/**
@@ -108,17 +106,20 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			if(sideOne==sideTwo && sideTwo==sideThree) 
+			return false;
 			return false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
+			 if(sideOne==sideTwo || sideOne==sideThree || sideTwo==sideThree)
+			return false;
 			return false;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
+			if(sideOne!=sideTwo && sideTwo != sideThree && sideThree != sideOne)
+			return false;
 			return false;
 		}
 
@@ -140,7 +141,53 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
+		class Scrabble {
+		    private String word = "cabbage";
+
+		    Scrabble(String word) {
+		        this.word = word.toUpperCase();
+		    }
+
+		    int getScore() {
+		        char[] arrayWord = this.word.toCharArray();
+		        int score = 0;
+
+
+		        for ( Character letter : arrayWord) {
+		            score += getValueLetter(letter);
+		        }
+		        return score;
+		    }
+
+
+		    int getValueLetter(char letter){
+		        switch (letter){
+		            case 'G':
+		            case 'D': return 2;
+
+		            case 'B':
+		            case 'C':
+		            case 'M':
+		            case 'P': return 3;
+
+		            case 'F':
+		            case 'H':
+		            case 'V':
+		            case 'W':
+		            case 'Y': return 4;
+
+		            case 'K': return 5;
+
+		            case 'J':
+		            case 'X': return 8;
+
+		            case 'Q':
+		            case 'Z': return 10;
+
+		            default: return 1;
+		        }
+		    }
+		}
 		return 0;
 	}
 
@@ -190,7 +237,20 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
+		
+		Map<String, Integer> m  = new HashMap<String,Integer>();
+		
+		String str = "olly olly in come free";
+		//split the string by spaces
+		String a[] = str.split("");
+		int count = 0;
+		for(int i = 0; i < a.length)
+		
+		
+		
+		
+		
+		
 		return null;
 	}
 
