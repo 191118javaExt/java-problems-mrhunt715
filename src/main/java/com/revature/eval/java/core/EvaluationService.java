@@ -4,9 +4,11 @@ import java.time.LocalDateTime;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +16,7 @@ import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
 public class EvaluationService {
 	
+	private int sum;
 	/**
 	 * 1. Without using the StringBuilder or StringBuffer class, write a method that
 	 * reverses a String. Example: reverse("example"); -> "elpmaxe"
@@ -343,7 +346,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		Pattern vows = Pattern.compile("^([aeiou]+|y[^aeiou]|xr)");
+		Pattern vows = Pattern.compile("^([aeiou]|y[^aeiou]|xr)");
 		Pattern cons = Pattern.compile("^([^aeiou]?qu|[^aeiouy]+|y(?=[aeiou]))");
 		
 		String PigLatin = "";
@@ -358,7 +361,7 @@ public class EvaluationService {
 					PigLatin += letters.substring(b.end()) + b.group();
 				
 			}
-			PigLatin += "a" + "y";
+			PigLatin += "ay ";
 		}
 		return PigLatin.substring(0,PigLatin.length()- 1);
 	}
@@ -456,11 +459,21 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
-
-	}
+			if(key == 0) {
+				return string;
+			} else {
+				final int aLength = 26;
+				StringBuilder result = new StringBuilder("");
+				for(int i = 0; i < string.length(); i++) {
+					char c = (string.charAt(i));
+					if(c != ' ') {
+						
+							}
+						}
+					}
+				}
+			}
+			//return null;
 
 	/**
 	 * 12. Given a number n, determine what the nth prime is.
@@ -479,7 +492,9 @@ public class EvaluationService {
 		int nthPrime = 0;
 		
 		if(i<=0) {
-			System.out.println("not a prime number" + i);
+			throw new IllegalArgumentException("" + i);
+		
+			//System.out.println("not a prime number" + i);
 		}
 		while(prime < i) {
 			nthPrime++;
@@ -530,7 +545,7 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			string = string.toLowerCase();//all strings to lowercase
+			Map<String, String> m = generateMap();
 			String words = "";//empty value for variable
 			
 			for(int i = 0; i < string.length(); i++) {
@@ -578,6 +593,10 @@ public class EvaluationService {
 		return false;
 	}
 
+	public static Map<String, String> generateMap() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	/**
 	 * 16. Determine if a sentence is a pangram. A pangram (Greek: παν γράμμα, pan
 	 * gramma, "every letter") is a sentence using every letter of the alphabet at
@@ -592,8 +611,23 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		if(string != null) {
+			string = string.toLowerCase();
+			string = string.replaceAll("[^a-z]",  "");
+			Set<Character> charSet = new HashSet<>();
+			for(int i = 0; i < string.length(); i ++) {
+				charSet.add(string.charAt(i));
+				
+			}
+			if(charSet.size() == 26) {
+				return true;
+			}else {
+				return false;
+			}
+		}else {
+			return false;
+		}
+		
 	}
 
 	/**
@@ -673,10 +707,29 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
+		string = string.replace("", "");
+		if(string.matches("[^0-9]")) {
+		return false;
+	}else {
+		int sum = 0 ;
+				int num = 0;
+				for(int i = string.length() - 1; i >= 0; i--) {
+					num = Character.getNumericValue(string.charAt(i));
+					num *= 2;
+					if(num > 9) {
+						num -=9;
+					}
+					
+	}
+				System.out.println(num);
+				sum += num;
+	}
+		if(sum % 10 == 0) {
+			return true;
+	}else {
 		return false;
 	}
-
+	}
 	/**
 	 * 20. Parse and evaluate simple math word problems returning the answer as an
 	 * integer.
