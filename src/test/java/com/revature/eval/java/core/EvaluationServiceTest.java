@@ -62,28 +62,28 @@ public class EvaluationServiceTest {
 	public void basic() {
 		final String phrase = "Portable Network Graphics";
 		final String expected = "PNG";
-		assertEquals(expected, evaluationService.acronym(phrase));
+		assertEquals(expected, evaluationService.Acronym(phrase));
 	}
 
 	@Test
 	public void punctuation() {
 		final String phrase = "First In, First Out";
 		final String expected = "FIFO";
-		assertEquals(expected, evaluationService.acronym(phrase));
+		assertEquals(expected, evaluationService.Acronym(phrase));
 	}
 
 	@Test
 	public void NonAcronymAllCapsWord() {
 		final String phrase = "GNU Image Manipulation Program";
 		final String expected = "GIMP";
-		assertEquals(expected, evaluationService.acronym(phrase));
+		assertEquals(expected, evaluationService.Acronym(phrase));
 	}
 
 	@Test
 	public void punctuationWithoutWhitespace() {
 		final String phrase = "Complementary metal-oxide semiconductor";
 		final String expected = "CMOS";
-		assertEquals(expected, evaluationService.acronym(phrase));
+		assertEquals(expected, evaluationService.Acronym(phrase));
 	}
 
 	/*******************************************************************
@@ -615,7 +615,6 @@ public class EvaluationServiceTest {
 	}
 
 	@Test
-	@Ignore
 	public void withFullTimeSpecifiedAndDayRollover() {
 		assertEquals(LocalDateTime.of(2046, Month.OCTOBER, 3, 1, 46, 39),
 				evaluationService.getGigasecondDate(LocalDateTime.of(2015, Month.JANUARY, 24, 23, 59, 59)));

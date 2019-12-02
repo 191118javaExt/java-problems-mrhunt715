@@ -1,10 +1,14 @@
 package com.revature.eval.java.core;
 
+import java.time.LocalDateTime;
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.crypto.dsig.spec.HMACParameterSpec;
 
@@ -17,18 +21,14 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public String reverse(String string) {
-		
-		String rev = "robot";
-		
-		char[] ch = rev.toCharArray();
-		
-		for(int i = ch.length-1;i>=0; i--)	
-			System.out.print(ch[i]);
-		
-		return rev;
+		public String reverse(String string) {
+		char[] reverse = new char[string.length()];
+		for(int i = reverse.length - 1, j = 0; i >= 0; i--, j++) {
+			reverse[j] = string.charAt(i);
+		}
+			
+		return new String (reverse);//return value in reverse reference variable
 	}
-
 	/**
 	 * 2. Convert a phrase to its acronym. Techies love their TLA (Three Letter
 	 * Acronyms)! Help generate some jargon by writing a program that converts a
@@ -37,27 +37,19 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
-	public String Acronym(String phrase) {
-		//string variable named "threewords" holds the value/phrase "Ruby On Rails"
-		String threeWords = "Ruby On Rails";
-		//string array holds each word
-		//.splits() separates the three word phrase
-		String[] word = threeWords.split(" ");
-		//Character class to hold each letter of each word
-		//to string returns the letter
-		String acronym =
-			Character.toString(word[0].charAt(0)).toUpperCase() + 
-			Character.toString(word[1].charAt(0)).toUpperCase() + 
-			Character.toString(word[2].charAt(0)).toUpperCase();
-		
-		
-			System.out.println("Acronym is: "+ acronym);
-		
+	final public String Acronym(String phrase) {
+		 String letter = phrase;
+		 String acronym = "";
+		 for(char c : letter.toCharArray())
+			 if(Character.isUpperCase(c))//wraps characters obtained from text in an array 
+				 acronym += c;
+		 System.out.println(acronym);
 	return acronym;
 	}
+	
 
 	/**
-	 * 3. Determine if a triangle is equilateral, isosceles, or scalene. An
+	 * 3. 	. An
 	 * equilateral triangle has all three sides the same length. An isosceles
 	 * triangle has at least two sides the same length. (It is sometimes specified
 	 * as having exactly two sides the same length, but for the purposes of this
@@ -104,27 +96,30 @@ public class EvaluationService {
 		public void setSideThree(double sideThree) {
 			this.sideThree = sideThree;
 		}
-
+		
+		
+		
 		public boolean isEquilateral() {
-			if(sideOne==sideTwo && sideTwo==sideThree) 
-			return false;
-			return false;
+			if(sideOne==sideTwo && sideTwo==sideThree) {
+			return true;
+			}else
+				return false;
 		}
 
 		public boolean isIsosceles() {
-			 if(sideOne==sideTwo || sideOne==sideThree || sideTwo==sideThree)
-			return false;
+			 if(sideOne==sideTwo || sideOne==sideThree || sideTwo==sideThree) {
+				 return true;
+		}else
 			return false;
 		}
-
 		public boolean isScalene() {
-			if(sideOne!=sideTwo && sideTwo != sideThree && sideThree != sideOne)
+			if(sideOne!=sideTwo && sideTwo != sideThree && sideOne != sideThree) {
+				return true;
+		 }else {
 			return false;
-			return false;
+		 		}
 		}
-
-	}
-
+	}	
 	/**
 	 * 4. Given a word, compute the scrabble score for that word.
 	 * 
@@ -141,56 +136,63 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		class Scrabble {
-		    private String word = "cabbage";
+		int scorePoints = 0;
+		for(int j = 0; j < string.length(); j++) {
 
-		    Scrabble(String word) {
-		        this.word = word.toUpperCase();
-		    }
-
-		    int getScore() {
-		        char[] arrayWord = this.word.toCharArray();
-		        int score = 0;
-
-
-		        for ( Character letter : arrayWord) {
-		            score += getValueLetter(letter);
-		        }
-		        return score;
-		    }
-
-
-		    int getValueLetter(char letter){
-		        switch (letter){
+		    char getValueLetter = string.charAt(j);
+		        switch (getValueLetter){
 		            case 'G':
-		            case 'D': return 2;
+		            case 'D': scorePoints += 2;
+		            break;
 
 		            case 'B':
+		            case 'b':
+		            case 'c':
 		            case 'C':
+		            case 'm':
 		            case 'M':
-		            case 'P': return 3;
+		            case 'p':
+		            case 'P': scorePoints += 3;
+		            break;
 
 		            case 'F':
+		            case 'f':
 		            case 'H':
+		            case 'h':
 		            case 'V':
+		            case 'v':
 		            case 'W':
-		            case 'Y': return 4;
-
-		            case 'K': return 5;
-
+		            case 'w':
+		            case 'y':
+		            case 'Y': scorePoints += 4;
+		            break;
+		            
+		            case 'k':
+		            case 'K': scorePoints += 5;
+		            break;
+		            
+		            case 'j':
 		            case 'J':
-		            case 'X': return 8;
-
+		            case 'x':
+		            case 'X': scorePoints += 8;
+		            break;
+		            
+		            case 'q':
 		            case 'Q':
-		            case 'Z': return 10;
-
-		            default: return 1;
+		            case 'z':
+		            case 'Z': scorePoints += 10;
+		            break;
+		            
+		            case 'o':
+		            case 'O':
+		            case 's':
+		            case 'S':
+		            default: scorePoints += 1;
+		            break;
 		        }
 		    }
-		}
-		return 0;
-	}
-
+		return scorePoints;
+}
 	/**
 	 * 5. Clean up user-entered phone numbers so that they can be sent SMS messages.
 	 * 
@@ -223,8 +225,12 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String number = "+(223) 4.56-78.90"; //String to test
+				number = number.replaceAll("[\\D]", "");
+				//using .replace all/regular expression to remove any character that
+				//is not a digit (regex,replacement)
+				System.out.println("Phone number:" + number);
+		return number;
 	}
 
 	/**
@@ -240,19 +246,26 @@ public class EvaluationService {
 		
 		Map<String, Integer> m  = new HashMap<String,Integer>();
 		
-		String str = "olly olly in come free";
-		//split the string by spaces
-		String a[] = str.split("");
-		int count = 0;
-		for(int i = 0; i < a.length)
+		Scanner sc = new Scanner(string);
+		sc.useDelimiter("[^a-zA-Z']+");
 		
+		String s = "";
 		
-		
-		
-		
-		
-		return null;
+		while(sc.hasNext()) {
+			s = sc.next();
+			
+			if(m.containsKey(s)) {
+				m.put(s,m.get(s) + 1);
+			}else {
+				m.put(s,1);
+			}
+		}
+		sc.close();
+		return m;
 	}
+		
+		
+		
 
 	/**
 	 * 7. Implement a binary search algorithm.
@@ -330,8 +343,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		Pattern vows = Pattern.compile("^([aeiou]+|y[^aeiou]|xr)");
+		Pattern cons = Pattern.compile("^([^aeiou]?qu|[^aeiouy]+|y(?=[aeiou]))");
+		
+		String PigLatin = "";
+		
+		for(String letters : string.split(" ")) {
+			if(vows.matcher(letters).find())
+				PigLatin += letters;
+			else {
+				Matcher b = cons.matcher(letters);
+				if(b.find())
+					
+					PigLatin += letters.substring(b.end()) + b.group();
+				
+			}
+			PigLatin += "a" + "y";
+		}
+		return PigLatin.substring(0,PigLatin.length()- 1);
 	}
 
 	/**
@@ -350,8 +379,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		int digits = ((int) Math.log10(Math.abs((double)input))) +1;
+			double armstrongSum = 0;
+				int digit = 0;
+		
+		for(int i = 0; i < digits; i++) {
+			digit = (int) (input % Math.pow(10, i + 1) / Math.pow(10, i));
+			
+			armstrongSum += Math.pow(digit, digits);
+		}
+		return armstrongSum == (double) input;
+		//return false;
 	}
 
 	/**
@@ -365,8 +403,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> pFactors = new ArrayList<Long>();
+			while(l % 2 == 0) {
+				pFactors.add(21L);
+				
+			}
+			for(long i = 3; i <= Math.sqrt(l); i+=2) {
+				while(l % i == 0) {
+					pFactors.add(i);
+					l /= i;
+				}
+				if(l > 2) {
+					pFactors.add(l);
+				}
+			}
+		
+		return pFactors;
 	}
 
 	/**
@@ -423,9 +475,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int prime = 0;
+		int nthPrime = 0;
+		
+		if(i<=0) {
+			System.out.println("not a prime number" + i);
+		}
+		while(prime < i) {
+			nthPrime++;
+			
+			if(primeNum(nthPrime)) {
+				prime++;
+			}
+		}
+		return (int)nthPrime ;
 	}
+
+	private boolean primeNum(int number) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 	/**
 	 * 13 & 14. Create an implementation of the atbash cipher, an ancient encryption
@@ -460,7 +530,12 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
+			string = string.toLowerCase();//all strings to lowercase
+			String words = "";//empty value for variable
+			
+			for(int i = 0; i < string.length(); i++) {
+				
+			}
 			return null;
 		}
 
@@ -530,8 +605,8 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		LocalDateTime date = LocalDateTime.parse(given.toString());
+		return date.plusSeconds(1000000000);
 	}
 
 	/**
@@ -548,8 +623,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int sum = 0;
+		
+		for(int a = 1; a < i; a++) {
+			for(int b = 0; b < set.length; b++) {
+				if(a % set[b] == 0) {
+					sum+= a;
+					break;
+				}
+			}
+		}
+		return sum;
 	}
 
 	/**
@@ -621,8 +705,36 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		String s = string.replace("?", "");// remove special character and spaces
+		String[] words = s.split("");//split at spaces
+		boolean complete = false;//check if we have both ints
+		int[] numbers = new int[2];// 2 int from word problem
+		int sum = 0;
+		
+		for(int i = 0; i < words.length; i++) {
+			if(words[i].charAt(0)=='-' || Character.isDigit(words[i].charAt(0))) {
+				if(complete == false) {
+					numbers[0] = Integer.parseInt(words[i]);
+					complete = true;
+				}
+				if(complete == true) {
+					numbers[1] = Integer.parseInt(words[i]);
+				}
+			}
+		}
+		if(s.contains("plus")) {
+			sum = numbers[0] + numbers[1];
+		}
+		if(s.contains("minus")) {
+			sum = numbers[0] - numbers[1];
+		}
+		if(s.contains("multiplied")) {
+			sum = numbers[0] * numbers[1];
+		}
+		if(s.contains("divided")) {
+			sum = numbers[0] / numbers[1];
+		}
+		return sum;
 	}
-
 }
+

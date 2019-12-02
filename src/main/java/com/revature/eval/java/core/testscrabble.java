@@ -39,13 +39,17 @@ public class testscrabble {
 			            case 'V':
 			            case 'W':
 			            case 'Y': return 4;
-
+			            case 'k':
 			            case 'K': return 5;
-
+			            
+			            case 'j':
 			            case 'J':
+			            case 'x':
 			            case 'X': return 8;
-
+			            
+			            case 'q':
 			            case 'Q':
+			            case 'z':
 			            case 'Z': return 10;
 
 			            default: return 1;
